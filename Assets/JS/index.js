@@ -2,26 +2,7 @@ class Operation {
   constructor() {
     this.table = document.querySelector(".content");
     this.modal = document.querySelector(".modal");
-    this.tasks = [
-      {
-        title: "Ок",
-        body: "Вообще чмо",
-        priority: "бесрочно",
-        type: "current"
-      },
-      {
-        title: "Андрей лох",
-        body: "Вообще чмо",
-        priority: "бесрочно",
-        type: "completed"
-      },
-      {
-        title: "Андрей не лох",
-        body: "Вообще не чмо",
-        priority: "бесрочно",
-        type: "deleted"
-      }
-    ];
+    this.tasks = [];
   }
   type(type, i) {
     switch (type) {
@@ -97,34 +78,34 @@ class Operation {
 }
 
 (() => {
-  let pipka = new Operation();
+  let init = new Operation();
 
   window.addEventListener("click", e => {
     e.preventDefault();
     let n = e.target.getAttribute("class"),
-      str = n.split(" ");
-    if (str.length == 2) {
-      switch (str[1]) {
+      t_class = n.split(" ");
+    if (t_class.length == 2) {
+      switch (t_class[1]) {
         case "_current":
-          pipka.draw("current");
+          init.draw("current");
           break;
         case "_completed":
-          pipka.draw("completed");
+          init.draw("completed");
           break;
         case "_deleted":
-          pipka.draw("deleted");
+          init.draw("deleted");
           break;
         case "_create":
-          pipka.create();
+          init.create();
           break;
         case "_complete":
-          pipka.complete(e.target.getAttribute("data-id"));
+          init.complete(e.target.getAttribute("data-id"));
           break;
         case "_delete":
-          pipka.delete(e.target.getAttribute("data-id"));
+          init.delete(e.target.getAttribute("data-id"));
           break;
         case "_restore":
-          pipka.restore(e.target.getAttribute("data-id"));
+          init.restore(e.target.getAttribute("data-id"));
           break;
       }
     }
