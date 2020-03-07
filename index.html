@@ -18,6 +18,7 @@
   </head>
   <body>
     <header>
+      <h1 class="tab_type"></h1>
       <nav>
         <div class="tabs_container">
           <div class="tabs">
@@ -47,7 +48,8 @@
       <section>
         <button class="button _create">Create</button>
         <div class="modal">
-          <form action="#">
+          <form class="create_form" action="#">
+            <span class="btn _exit">X</span>
             <input type="text" class="add" />
             <input type="text" class="add" />
             <select class="add">
@@ -55,7 +57,7 @@
               <option value="perpetual">Perpetual</option>
               <option value="urgent">Urgent</option>
             </select>
-            <button class="add">Create</button>
+            <button class="add _add">Create</button>
           </form>
         </div>
       </section>
