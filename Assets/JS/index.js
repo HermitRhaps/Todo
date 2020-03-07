@@ -11,6 +11,12 @@ class Operation {
         type: "current"
       }
     ];
+    this.localStorage = this.localStorage();
+  }
+  localStorage() {
+    localStorage.getItem("tasks") != null
+      ? (this.new_tasks = JSON.parse(localStorage.getItem("tasks")))
+      : localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
   type(type, i) {
     switch (type) {
@@ -41,18 +47,18 @@ class Operation {
   draw(type = "current") {
     console.log("draw");
     this.table.innerHTML = "";
-    for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].type == type) {
+    for (let i = 0; i < this.new_tasks.length; i++) {
+      if (this.new_tasks[i].type == type) {
         this.table.innerHTML +=
           "<tr>" +
           "<td>" +
-          this.tasks[i].title +
+          this.new_tasks[i].title +
           "</td>" +
           "<td>" +
-          this.tasks[i].body +
+          this.new_tasks[i].body +
           "</td>" +
           "<td>" +
-          this.tasks[i].priority +
+          this.new_tasks[i].priority +
           "</td>" +
           this.type(type, i) +
           "</tr>";
@@ -64,13 +70,14 @@ class Operation {
     this.modal.classList.add("_active");
   }
   finishing_create() {
-    this.tasks.push({
+    this.new_tasks.push({
       title: this.add_operations[0].value,
       body: this.add_operations[1].value,
       priority: this.add_operations[2].value,
       type: "current"
     });
     this.draw("current");
+    localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
   close_modal() {
     this.modal.classList.remove("_active");
@@ -79,19 +86,22 @@ class Operation {
     }
   }
   delete(id) {
-    this.current_type = this.tasks[id].type;
-    this.tasks[id].type = "deleted";
+    this.current_type = this.new_tasks[id].type;
+    this.new_tasks[id].type = "deleted";
     this.draw(this.current_type);
+    localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
   complete(id) {
-    this.current_type = this.tasks[id].type;
-    this.tasks[id].type = "completed";
+    this.current_type = this.new_tasks[id].type;
+    this.new_tasks[id].type = "completed";
     this.draw(this.current_type);
+    localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
   restore(id) {
     this.current_type = this.tasks[id].type;
     this.tasks[id].type = "current";
     this.draw(this.current_type);
+    localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
 }
 
