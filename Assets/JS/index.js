@@ -11,9 +11,9 @@ class Operation {
         type: "current"
       }
     ];
-    this.localStorage = this.localStorage();
+    this.start = this.save_storage();
   }
-  localStorage() {
+  save_storage() {
     localStorage.getItem("tasks") != null
       ? (this.new_tasks = JSON.parse(localStorage.getItem("tasks")))
       : localStorage.setItem("tasks", JSON.stringify(this.tasks));
@@ -38,7 +38,7 @@ class Operation {
         this.type_op =
           "<td><button data-id=" +
           i +
-          " class='button _restore'=>Restore</button></td>";
+          " class='button _restore'>Restore</button></td>";
         break;
     }
 
@@ -98,8 +98,9 @@ class Operation {
     localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
   restore(id) {
-    this.current_type = this.tasks[id].type;
-    this.tasks[id].type = "current";
+    console.log(id);
+    this.current_type = this.new_tasks[id].type;
+    this.new_tasks[id].type = "current";
     this.draw(this.current_type);
     localStorage.setItem("tasks", JSON.stringify(this.new_tasks));
   }
@@ -108,6 +109,7 @@ class Operation {
 (() => {
   let tab_type = document.querySelector(".tab_type");
   let init = new Operation();
+  init.save_storage();
   tab_type.innerHTML = "Current";
   init.draw("current");
   window.addEventListener("click", e => {
